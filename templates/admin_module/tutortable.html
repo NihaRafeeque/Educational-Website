@@ -1,0 +1,38 @@
+{% extends "admin_module/index.html" %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tutors</title>
+</head>
+<body>
+<table class="table bg-light">
+    <tr>
+      <th  scope="col">#</th>
+      <th  scope="col">Name</th>
+      <th  scope="col">Address</th>
+      <th  scope="col">Gender</th>
+      <th  scope="col">Qualification</th>
+      <th  scope="col">Contact</th>
+      <th  scope="col">Email</th>
+      <th  scope="col">CV</th>
+    </tr>
+      {% for datum in data %}
+       <tr>
+      <td>&nbsp;{{ forloop.counter }}</td>
+      <td>{{ datum.name }}</td>
+      <td>&nbsp;{{ datum.housename }},{{ datum.place }},{{ datum.post }},{{ datum.pin }},{{ datum.district }}</td>
+      <td>&nbsp;{{ datum.gender }}</td>
+      <td>&nbsp;{{ datum.qualification }}</td>
+      <td>&nbsp;{{ datum.contact }}</td>
+      <td>{{ datum.email }}</td>
+           <td><a class="btn btn-secondary btn-sm" href="{{ datum.cv }}">View</a></td>
+    </tr>
+      {% endfor %}
+
+  </table>
+</body>
+</html>
+{% endblock %}

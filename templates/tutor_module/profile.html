@@ -1,0 +1,42 @@
+{% extends "tutor_module/index.html" %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Profile</title>
+</head>
+<body>
+<table class="table bg-light">
+  <tr>
+    <th scope="row">Name</th>
+    <td>{{ data.name }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Address</th>
+    <td>{{ data.housename }}<br>
+    {{ data.place }}<br>
+    {{ data.post }}<br>
+    {{ data.pin }}<br>
+    {{ data.district }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Gender</th>
+    <td>{{ data.gender }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Qualification</th>
+    <td>{{ data.qualification }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Contact</th>
+    <td>{{ data.contact }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Email</th>
+    <td>{{ data.email }}</td>
+  </tr>
+</table>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "tutor_module/index.html" %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Upload class</title>
+</head>
+<body>
+<form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
+    {% csrf_token %}
+    <center>
+<table style="width: 100px;" class="table bg-light">
+    <tr>
+      <th class="align-middle" scope="row">Class</th>
+      <td scope="row"><label for="fileField"></label>
+      <input type="file" name="fileField" id="fileField" required/></td>
+    </tr>
+    <tr>
+        <th scope="row"><div align="center"><button class="btn btn-secondary btn-sm" type="submit" name="button" id="button">Upload</button></div></th>
+    </tr>
+  </table>
+        </center>
+</form>
+</body>
+</html>
+{% endblock %}
