@@ -1,51 +1,44 @@
 {% extends "tutor_module/index.html" %}
 {% block body %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Chat</title>
-    <style type="text/css">
-        .main, .message{
-          width: 50rem;
-            height: 30rem;
-        }
-        .message{
-            height: 28rem;
-        }
-        #msg{
-          width: 40rem;
-        }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="/static/temp/assets/css/tutorchat.css">
+    <title>Chat</title>
 </head>
 
 <body>
-<form id="form1" name="form1" method="post" action="">
-    {% csrf_token %}
     <center>
-        <div class="main bg-light">
-            <div class="message bg-warning">
-                {% for i in data %}
-                    {% if i.tutor_id == uid %}
-                        <div class="right" align="right" >
-                        <p class="tutor-msg"  >{{ i.chat }}</p>
-                        </div>
+        <form id="form1" name="form1" method="post" action="">
+            {% csrf_token %}
+            <div class="main bg-light">
+                <div class="message">
+                    {% for i in data %}
+                    {% if i.type == 'tutor' %}
+                    <div class="right" align="right">
+                        <p class="tutor-msg">{{ i.chat }}</p>
+                    </div>
+
                     {% else %}
-                        <div class="left" align="left">
-                        <p class="student-msg" style="text-align: left" >{{ i.chat }}</p>
-                        </div>
+                    <div class="left" align="left">
+                        <p class="student-msg">{{ i.chat }}</p>
+                    </div>
                     {% endif %}
 
-                {% endfor %}
-            </div>
-            <div class="chat">
-                <input type="text" id="msg" name="msg" placeholder="Ask your doubt here!..."/>
-                <input type="submit" value="send"  class="btn btn-secondary btn-sm" />
-            </div>
+                    {% endfor %}
+                </div>
+                <div class="chat">
+                    <input type="text" id="msg" name="msg" placeholder="Ask your doubt here!..." />
+                    <input type="submit" value="send" class="btn btn-secondary btn-sm" />
+                </div>
 
-        </div>
+            </div>
     </center>
-</form>
+    </form>
 </body>
+
 </html>
 {% endblock %}

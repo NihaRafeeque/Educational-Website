@@ -1,5 +1,4 @@
 from django.urls import path
-
 from tutor import views
 
 urlpatterns = [
@@ -66,6 +65,8 @@ urlpatterns = [
     path('viewnotes', views.ViewNotes_Android, name='viewnotes'),
     path('viewsubject', views.ViewSubject_Android, name='viewsubject'),
     path('viewtutor', views.ViewTutor_Android, name='viewtutor'),
+    path('sendchat', views.SendChat_Android, name='sendchat'),
+    path('chat', views.ViewChat_Android, name='chat'),
     path('comp', views.Complaint_Android, name='comp'),
     path('viewreply', views.ViewReply_Android, name='viewreply'),
     path('feed', views.Feedback_Android, name='feed'),

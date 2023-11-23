@@ -1,0 +1,27 @@
+.main, .message{
+    width: 50rem;
+      height: 30rem;
+  }
+  .message{
+      background-color:#eeeeee;
+      height: 28rem;
+      overflow-y: scroll;
+      scroll-behavior: auto;
+      padding:15px;
+  }
+  #msg{
+    width: 40rem;
+  }
+  .student-msg, .tutor-msg{
+      width:30%;
+      word-wrap: break-word;
+      background-color:#adb5bd;
+      padding: 7px 10px;
+      border-radius: 10px 10px 0 10px;
+      margin: 5px 0 5px auto;
+  }
+  .tutor-msg{
+      background-color: #999999;
+      border-radius: 10px 10px 10px 0;
+      margin: 10px 0;
+}

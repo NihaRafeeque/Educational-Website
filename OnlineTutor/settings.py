@@ -78,10 +78,11 @@ WSGI_APPLICATION = 'OnlineTutor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tutor.database',
+        'NAME': 'onlinetutor_db',
         'USER': 'root',
-        'PASSWORD': '',
-        'PORT': 3306
+        'PASSWORD': 'root1',
+        'HOST': 'localhost',
+        'PORT': 3307
     }
 }
 

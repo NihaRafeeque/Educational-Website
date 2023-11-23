@@ -63,6 +63,7 @@ class Chat(models.Model):
     tutor = models.ForeignKey(Tutor, default=1, on_delete=models.CASCADE)
     chat = models.CharField(max_length=800)
     date = models.CharField(max_length=200)
+    type = models.CharField(max_length=200)
 
 
 class AllocateSubject(models.Model):
@@ -87,3 +88,4 @@ class Class(models.Model):
     classes = models.CharField(max_length=800)
     date = models.CharField(max_length=200)
     time = models.CharField(max_length=200)
+    thumbnail = models.ImageField()

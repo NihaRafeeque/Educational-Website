@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from .models import *
 
 
+
 def Login1(request):
     if request.method == 'POST':
         u = request.POST['name']
@@ -15,6 +16,7 @@ def Login1(request):
             qry = qry[0]
             request.session['lid'] = qry.id
             request.session['login'] = "1"
+            request.session['utype'] = qry.utype
             if qry.utype == 'admin':
                 return redirect('/home-admin')
             elif qry.utype == 'tutor':
@@ -22,10 +24,10 @@ def Login1(request):
             elif qry.utype == 'Student':
                 return redirect('/home-student')
             else:
-                return HttpResponse('<script>alert("Invalid Username or Password .");window.location="/invaliduser#contact"</script>')
+                return HttpResponse('<script>alert("Invalid username or password .");window.location="/invaliduser#contact"</script>')
         else:
 
-            return HttpResponse('<script>alert("Invalid Username or Password.");window.location="/invaliduser#contact"</script>')
+            return HttpResponse('<script>alert("Invalid username or password.");window.location="/invaliduser#contact"</script>')
     # return render(request, 'login.html')
 
 
@@ -79,7 +81,7 @@ def Approve(request, id):
     if request.session['login'] == "1":
 
         Login.objects.filter(id=id).update(utype='tutor')
-        return redirect('/admin_module/tutortable.html')
+        return HttpResponse('<script>alert("Successfully Approved.");window.location="/tutortable-admin#a"</script>')
     else:
         return redirect('/')
 
@@ -89,7 +91,7 @@ def Reject(request, id):
 
         Login.objects.filter(id=id).delete()
         Tutor.objects.filter(login_id=id).delete()
-        return HttpResponse('<script>alert("Successfully rejected.");window.location="//tutortable-admin#a"</script>')
+        return HttpResponse('<script>alert("Successfully Rejected.");window.location="/tutortable-admin#a"</script>')
     else:
         return redirect('/')
 
@@ -103,7 +105,7 @@ def CourseAdd(request):
             obj = Course()
             obj.coursename = cname
             obj.save()
-            return HttpResponse('ok')
+            return HttpResponse('<script>alert("Sucessfully Added.");window.location="/coursetable-admin#a"</script>')
         return render(request, 'admin_module/courseadd.html')
     else:
         return redirect('/')
@@ -136,8 +138,9 @@ def SubjectAdd(request):
             obj = Subject()
             obj.subjectname = sname
             obj.save()
-            return HttpResponse('ok')
-        return render(request, 'admin_module/subjectadd.html')
+            return HttpResponse('<script>alert("Sucessfully Added.");window.location="/subjecttable-admin#a"</script>')
+        else:
+            return render(request, 'admin_module/subjectadd.html')
     else:
         return redirect('/')
 
@@ -215,7 +218,7 @@ def Reply(request, id):
             r = request.POST['textarea']
             d = datetime.datetime.now().strftime("%Y-%m-%d")
             obj = Complaint.objects.filter(id=id).update(reply=r, reply_date=d)
-            return HttpResponse('ok')
+            return HttpResponse('<script>alert("Reply sent.");window.location="/complainttable-admin#a"</script>')
         return render(request, 'admin_module/reply.html')
     else:
         return redirect('/')
@@ -243,7 +246,7 @@ def ChangePassword_Admin(request):
             if str(cr) == str(ps):
                 if nw == cf:
                     Login.objects.filter(utype='admin', id=request.session['lid']).update(password=nw)
-                    return HttpResponse('<script>alert("Password Updated.");window.location="/login#contact"</script>')
+                    return HttpResponse('<script>alert("Password Updated.");window.location="/invaliduser#contact"</script>')
 
                 else:
                     return HttpResponse('<script>alert("Password does not match.");window.location="/chngpsadmn#a"</script>')
@@ -276,15 +279,13 @@ def TutorRegistration(request):
         f = request.FILES['fileField']
         e = request.POST['textfield7']
         ps = request.POST['textfield8']
-        import datetime
         d1 = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         fs = FileSystemStorage()
         fs.save(r"C:\Users\user\PycharmProjects\OnlineTutor\static\\" + d1 + '.pdf', f)
         path = "/static/" + d1 + '.pdf'
         qry = Tutor.objects.filter(email=e)
         if qry.exists():
-            return HttpResponse(
-                '<script>alert("Username already exist.");window.location="/tutorregistration"</script>')
+            return HttpResponse('<script>alert("Username already exist.");window.location="/tutorregistration"</script>')
         else:
 
             obj1 = Login()
@@ -309,8 +310,7 @@ def TutorRegistration(request):
             obj.login = obj1
             obj.save()
 
-            return HttpResponse(
-                '<script>alert("You are Successfully registered.");window.location="/login#contact"</script>')
+            return HttpResponse('<script>alert("You are successfully registered.");window.location="/invaliduser#contact"</script>')
     else:
         return render(request, 'tutor_module/tutorregistration.html')
 
@@ -433,8 +433,7 @@ def Material(request, id):
             obj.date = d
             obj.time = t
             obj.save()
-            return HttpResponse(
-                '<script>alert("Sucessfully Uploaded.");window.location="/materialstable-tutor#a"</script>')
+            return HttpResponse('<script>alert("Sucessfully Uploaded.");window.location="/materialstable-tutor#a"</script>')
         return render(request, 'tutor_module/materials.html')
     else:
         return redirect('/')
@@ -453,7 +452,7 @@ def Delete4(request, id):
     if request.session['login'] == "1":
 
         Materials.objects.filter(id=id).delete()
-        return HttpResponse('<script>alert("Sucessfully Deleted.");window.location="/materials#a"</script>')
+        return HttpResponse('<script>alert("Sucessfully Deleted.");window.location="/materialstable-tutor#a"</script>')
     else:
         return redirect('/')
 
@@ -484,17 +483,19 @@ def TutorChat(request, id):
         if request.method == 'POST':
             c = request.POST['msg']
             d = datetime.datetime.now().strftime("%Y-%m-%d")
+            t = request.session['utype']
             obj = Chat()
             obj.tutor = Tutor.objects.get(login=request.session['lid'])
             obj.student = Student.objects.get(id=id)
             obj.chat = c
             obj.date = d
+            obj.type = t
             obj.save()
-            return HttpResponse('ok')
+            return redirect('/tutorchat/' + id)
         else:
             qry = Tutor.objects.get(login=request.session['lid'])
             uid = qry.id
-            print("uuuuuuuuu", uid)
+            # print("uuuuuuuuu", uid)
             content = Chat.objects.filter(tutor=uid, student=id)
             for i in content:
                 qry = i.chat
@@ -517,7 +518,7 @@ def ChangePassword_Tutor(request):
             if str(cr) == str(ps):
                 if nw == cf:
                     Login.objects.filter(utype='tutor', id=request.session['lid']).update(password=nw)
-                    return HttpResponse('<script>alert("Password Updated.");window.location="/login#contact"</script>')
+                    return HttpResponse('<script>alert("Password Updated.");window.location="/invaliduser#contact"</script>')
 
                 else:
                     return HttpResponse('<script>alert("Password does not match.");window.location="/chngpsttr#a"</script>')
@@ -573,7 +574,7 @@ def StudentRegistration(request):
             obj.email = e
             obj.login = obj1
             obj.save()
-            return HttpResponse('<script>alert("You are Successfully registered.");window.location="/login#contact"</script>')
+            return HttpResponse('<script>alert("You are successfully registered.");window.location="/invaliduser#contact"</script>')
     else:
         return render(request, 'student_module/studentregistration.html')
 
@@ -647,17 +648,19 @@ def StudentChat(request, id):
         if request.method == 'POST':
             c = request.POST['msg']
             d = datetime.datetime.now().strftime("%Y-%m-%d")
+            t = request.session['utype']
             obj = Chat()
             obj.student = Student.objects.get(login=request.session['lid'])
             obj.tutor = Tutor.objects.get(id=id)
             obj.chat = c
             obj.date = d
+            obj.type = t
             obj.save()
-            return HttpResponse('ok')
+            return redirect('/studentchat/'+id)
         else:
             qry = Student.objects.get(login=request.session['lid'])
             uid = qry.id
-            print("uuuuuu",qry)
+            # print("uuuuuu",qry)
             content = Chat.objects.filter(student=uid, tutor=id)
             for i in content:
                 qry = i.chat
@@ -682,7 +685,7 @@ def student_Complaint(request):
             obj.reply_date = 'pending'
             obj.student = Student.objects.get(login=request.session['lid'])
             obj.save()
-            return HttpResponse('ok')
+            return HttpResponse('<script>alert("Complaint Sent.");window.location="/complainttable-student#a"</script>')
         else:
             return render(request, 'student_module/complaint.html')
     else:
@@ -708,7 +711,7 @@ def FeedbackForm(request):
             obj.feedback = f
             obj.date = d
             obj.save()
-            return HttpResponse('ok')
+            return HttpResponse('<script>alert("Feedback sent.");window.location="/home-student"</script>')
         else:
             return render(request, 'student_module/feedbackform.htm')
     else:
@@ -729,11 +732,10 @@ def ChangePassword_Student(request):
             if str(cr) == str(ps):
                 if nw == cf:
                     Login.objects.filter(utype='Student', id=request.session['lid']).update(password=nw)
-                    return HttpResponse('<script>alert("Password Updated.");window.location="/login#contact"</script>')
+                    return HttpResponse('<script>alert("Password Updated.");window.location="/invaliduser#contact"</script>')
 
                 else:
-                    return HttpResponse(
-                        '<script>alert("Password does not match.");window.location="/chngpsstd#a"</script>')
+                    return HttpResponse( '<script>alert("Password does not match.");window.location="/chngpsstd#a"</script>')
             else:
                 return HttpResponse('<script>alert("Incorrect Password.");window.location="/chngpsstd#a"</script>')
 
@@ -859,6 +861,45 @@ def ViewTutor_Android(request):
         print(i.name)
         ar.append({"id": i.id, 'name': i.name, 'housename': i.housename, 'place': i.place, 'post': i.post, 'district': i.district, 'pin': i.pin, 'gender': i.gender, 'qualification': i.qualification, 'contact': i.contact, 'email': i.email})
     return JsonResponse({'status': 'ok', "data": ar})
+
+
+def SendChat_Android(request):
+    if request.method == 'POST':
+        c = request.POST['msg']
+        qry = request.POST['iid']
+        id = request.POST['cid']
+        id = Class.objects.get(id=id)
+        id = Tutor.objects.get(id=id.selectsubject.tutor.id)
+        qry = Student.objects.get(login=qry)
+        uid = qry.id
+        print(uid)
+
+        obj = Chat()
+        obj.chat = c
+        obj.student = qry
+        obj.tutor = id
+        obj.date = datetime.datetime.now().strftime('%Y-%m-%d')
+        obj.type = 'Student'
+        obj.save()
+        return JsonResponse({'status': 'ok'})
+
+
+def ViewChat_Android(request):
+        if request.method == 'POST':
+            qry = request.POST['sid']
+            id = request.POST['tid']
+            id = Class.objects.get(id=id)
+            id = Tutor.objects.get(id=id.selectsubject.tutor.id)
+            qry = Student.objects.get(login=qry)
+            uid = qry.id
+            print(uid)
+            content = Chat.objects.filter(student=uid, tutor=id)
+            ar = []
+            for i in content:
+                qry = i.chat
+                print(qry)
+                ar.append({"id": i.id, 'msg': i.chat, 'date': i.date, 'type': i.type, 'sid': i.student.id, 'tid': i.tutor.id})
+            return JsonResponse({'status': 'ok', 'data': ar})
 
 
 def Complaint_Android(request):

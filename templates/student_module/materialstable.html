@@ -1,29 +1,33 @@
 {% extends "student_module/index.html" %}
 {% block body %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Notes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Notes</title>
 </head>
+
 <body>
-<table class="table bg-light">
+  <table class="table bg-light">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Materials</th>
       <th scope="col">Date</th>
       <th scope="col">Time</th>
     </tr>
-      {% for i in data %}
-              <tr>
+    {% for i in data %}
+    <tr>
       <td>&nbsp;{{ forloop.counter }}</td>
-      <td>&nbsp;<a  class="btn btn-secondary btn-sm" href="{{ i.material }}">view</a></td>
+      <td>&nbsp;<a class="btn btn-secondary btn-sm" href="{{ i.material }}">view</a></td>
       <td>{{ i.date }}</td>
       <td>&nbsp;{{ i.time}}</td>
     </tr>
 
-      {% endfor %}
+    {% endfor %}
   </table>
 </body>
+
 </html>
 {% endblock %}

@@ -1,0 +1,26 @@
+#conn{
+    margin-left:25rem;
+}
+
+.check,.gender,.nm, #select{
+    color: #7a7a7a;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.gender, .nm, #select{
+    margin-bottom: 30px;
+}
+
+
+.nm, #select{
+    padding: 0px 15px;
+}
+
+#select{
+    position:relative;
+    top:-1rem;
+}
+
+
+
