@@ -1,32 +1,23 @@
 {% extends "tutor_module/index.html" %}
+{% block title %} View Class {% endblock %}
 {% block body %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>View Class</title>
-</head>
-<body>
 <table class="table bg-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Class</th>
-      <th scope="col">Date</th>
-      <th scope="col">Time</th>
-        <th scope="col"> </th>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Class</th>
+    <th scope="col">Date</th>
+    <th scope="col">Time</th>
+    <th scope="col"> </th>
 
-    </tr>
-      {% for i in data %}
-              <tr>
-      <td>{{ forloop.counter }}</td>
-      <td>&nbsp;<a  class="btn btn-secondary btn-sm" href="{{ i.classes }}">view</a></td>
-      <td>&nbsp;{{ i.date }}</td>
-      <td>&nbsp;{{ i.time }}</td>
-      <td><a class="btn btn-danger btn-sm" href="/delete5/{{ i.id }}">Delete</a> </td>
-    </tr>
-
-      {% endfor %}
-  </table>
-</body>
-</html>
+  </tr>
+  {% for i in data %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>&nbsp;<a class="btn btn-secondary btn-sm" href="{{ i.classes }}">view</a></td>
+    <td>&nbsp;{{ i.date }}</td>
+    <td>&nbsp;{{ i.time }}</td>
+    <td><a class="btn btn-danger btn-sm" href="/delete5/{{ i.id }}">Delete</a> </td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

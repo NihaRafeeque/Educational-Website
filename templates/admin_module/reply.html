@@ -1,26 +1,23 @@
 {% extends "admin_module/index.html" %}
+{% block title %} Reply {% endblock %}
 {% block body %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Reply</title>
-</head>
-<body>
 <form id="form1" name="form1" method="post" action="">
-    {% csrf_token %}
-    <center>
-<table class="table bg-light">
-    <tr>
-      <th scope="row"><label for="textarea"></label>
-      <textarea name="textarea" id="textarea" cols="45" rows="5" placeholder="Reply!..." required class="form-control"></textarea></th>
-    </tr>
-    <tr>
-        <th scope="row"><div align="center"><button class="btn btn-secondary btn-sm" type="submit" name="button" id="button">Send</button></div></th>
-    </tr>
-  </table>
-    </center>
+  {% csrf_token %}
+  <center>
+    <table class="table bg-light">
+      <tr>
+        <th scope="row"><label for="textarea"></label>
+          <textarea name="textarea" id="textarea" cols="45" rows="5" placeholder="Reply!..." required
+            class="form-control"></textarea>
+        </th>
+      </tr>
+      <tr>
+        <th scope="row">
+          <div align="center"><button class="btn btn-secondary btn-sm" type="submit" name="button"
+              id="button">Send</button></div>
+        </th>
+      </tr>
+    </table>
+  </center>
 </form>
-</body>
-</html>
 {% endblock %}

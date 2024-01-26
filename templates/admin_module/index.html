@@ -9,7 +9,7 @@
   <meta name="author" content="TemplateMo">
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-  <title>Edumate | Online Education - admin</title>
+  <title>{% block title %}{% endblock %}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/static/temp/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,26 +23,6 @@
 </head>
 
 <body>
-
-  <!-- Sub Header -->
-  <div class="sub-header">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-sm-8">
-        </div>
-        <div class="col-lg-4 col-sm-4">
-          <div class="right-icons">
-            <ul>
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-behance"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
@@ -131,7 +111,6 @@
         </div>
       </div>
   </section>
-
   <section class="our-courses" id="courses">
     <div class="container" id="a">
       <div class="row">

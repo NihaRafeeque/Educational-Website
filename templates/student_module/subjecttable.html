@@ -1,32 +1,20 @@
 {% extends "student_module/index.html" %}
+{% block title %} Subject {% endblock %}
 {% block body %}
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<table class="table bg-light">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">SubjectName</th>
+  </tr>
+  {% for i in data %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>&nbsp;{{ i.subject.subjectname }}</td>
+    <td><a class="btn btn-secondary btn-sm" href="/tutortable-student/{{ i.id }}#a">tutor</a></td>
+    <td><a class="btn btn-secondary btn-sm" href="/classtable-student/{{ i.id}}#a">class</a></td>
+    <td><a class="btn btn-secondary btn-sm" href="/materialstable-student/{{ i.id }}#a">notes</a></td>
+  </tr>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Subject</title>
-</head>
-
-<body>
-  <table class="table bg-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">SubjectName</th>
-    </tr>
-    {% for i in data %}
-    <tr>
-      <td>{{ forloop.counter }}</td>
-      <td>&nbsp;{{ i.subject.subjectname }}</td>
-      <td><a class="btn btn-secondary btn-sm" href="/tutortable-student/{{ i.id }}#a">tutor</a></td>
-      <td><a class="btn btn-secondary btn-sm" href="/classtable-student/{{ i.id}}#a">class</a></td>
-      <td><a class="btn btn-secondary btn-sm" href="/materialstable-student/{{ i.id }}#a">notes</a></td>
-    </tr>
-
-    {% endfor %}
-  </table>
-</body>
-
-</html>
+  {% endfor %}
+</table>
 {% endblock %}
